@@ -1,0 +1,93 @@
+function C4 = coeff_C4_old(n_range, eps, tol, par)
+% compute bandstructure coefficients C4
+
+  % In the bandstructure calculation, strain is taken into account without
+  % explicit smallness assumption. Here it is however more convenient to
+  % employ a linear approximation.
+
+  % compute unstrained reciprocal lattice vectors
+  %{
+    eps_relaxed = zeros(3,3);
+    [par] = reciprocal_lattice_vectors(eps_relaxed, par);
+
+    N_G    = par.pp.N_G;
+    G_list = par.pp.G_list;    
+  %}
+
+    %eps_relaxed = zeros(3,3);
+    [par] = reciprocal_lattice_vectors(eps, par);
+    N_G    = par.pp.N_G;
+    G_list = par.pp.G_list;
+    G_list = round(G_list * par.a0/(2*pi))  * (2*pi)/par.a0; 
+  
+
+  %%%%%%%%%%%%%%%%%%%%%%
+  % create list with strain to linear order
+  
+  % list of integer vectors (no strain)
+    g_list = G_list * par.a0/(2*pi);
+  
+  % add linear strain
+    Id = eye(3);
+    for i = 1 : N_G
+      g_list(:,i) = (Id - eps) * g_list(:,i);
+    end
+  
+  %%%%%%%%%%%%%%%%%%%%%%
+  % compute bandstructure coefficients
+  
+  % allocate memoty
+    C4 = zeros(length(n_range),1);  
+  
+  % scaled shift vector (times 2*pi/a0)
+    G0 = compute_G0(eps, par);
+    g0 = G0 * par.a0/(2*pi);
+
+  % add up coefficients       
+    for i1 = 1 : N_G
+      g1 = g_list(:,i1);
+      c1 = par.c(i1);
+
+      for i2 = 1 : N_G
+        g2 = g_list(:,i2);
+        c2 = par.c(i2);
+
+        g12 = g1 + g2;
+        c12 = c1' * c2';
+
+        for i3 = 1 : N_G
+          g3 = g_list(:,i3);
+          c3 = par.c(i3);
+
+          g123 = g12 - g3;
+          c123 = c12 * c3;
+
+          for i4 = 1 : N_G
+            g4 = g_list(:,i4);
+            c4 = par.c(i4);
+            
+            % take sum (using complex conjugation of c_-(G) = c_+^*(-G)
+              g      = g123 - g4;
+              c_prod = c123 * c4;
+        
+            % run over all integers n
+              for in = 1 : length(n_range)
+                n = n_range(in);
+        
+              % check selection rules  
+                if abs(g(1) - n*g0(1) ) <= tol
+                  if abs(g(2) - n*g0(2) ) <= tol
+                    if abs(g(3) - n*g0(3) ) <= tol
+                    % add up coefficients  
+                      C4(in) = C4(in) + c_prod;
+                    end
+                  end
+                end
+              end
+
+          end
+        end
+      end
+    end
+
+end
