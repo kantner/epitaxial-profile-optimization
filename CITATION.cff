@@ -1,0 +1,58 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Epitaxial Profile Optimization
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Abel
+    family-names: Thayil
+    email: thayil@wias-berlin.de
+    affiliation: >-
+      Weierstrass Institute for Applied Analysis and
+      Stochastics (WIAS), Berlin
+    orcid: 'https://orcid.org/0000-0002-3438-5901'
+  - given-names: Lasse
+    family-names: Ermoneit
+    email: ermoneit@wias-berlin.de
+    affiliation: >-
+      Weierstrass Institute for Applied Analysis and
+      Stochastics (WIAS), Berlin
+    orcid: 'https://orcid.org/0009-0006-0329-0164'
+  - given-names: Lars
+    name-particle: R.
+    family-names: Schreiber
+    email: schreibr@physik.rwth-aachen.de
+    affiliation: RWTH Aachen University
+    orcid: 'https://orcid.org/0000-0003-0904-9612'
+  - given-names: Thomas
+    family-names: Koprucki
+    email: koprucki@wias-berlin.de
+    affiliation: >-
+      Weierstrass Institute for Applied Analysis and
+      Stochastics (WIAS), Berlin
+    orcid: 'https://orcid.org/0000-0001-6235-9412'
+  - given-names: Markus
+    family-names: Kantner
+    email: kantner@wias-berlin.de
+    affiliation: >-
+      Weierstrass Institute for Applied Analysis and
+      Stochastics (WIAS), Berlin
+    orcid: 'https://orcid.org/0000-0003-4576-3135'
+identifiers:
+  - type: doi
+    value: 10.48550/arXiv.2512.18064
+    description: >-
+      Optimization of Si/SiGe Heterostructures for Large and
+      Robust Valley Splitting in Silicon Qubits (arXiv
+      preprint)
+repository-code: 'https://github.com/kantner/epitaxial-profile-optimization'
+abstract: >
+  MATLAB code to reproduce results and figures of the paper
+  "Optimization of Si/SiGe Heterostructures for Large and
+  Robust Valley Splitting in Silicon Qubits",
+  arXiv:2512.18064 (2025)
+license: MIT
